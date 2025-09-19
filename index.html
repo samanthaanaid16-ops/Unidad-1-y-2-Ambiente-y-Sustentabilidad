@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ambiente y Sustentabilidad</title>
+  <style>
+    /* Barra de navegación fija */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    /* Animaciones suaves */
+    .sidebar-tips, .sidebar-toggle-btn, img, .faq-section {
+      transition: all 0.3s ease;
+    }
+    .sidebar-toggle-btn:hover {
+      background: #2e7d32;
+      color: #fff;
+    }
+    /* Íconos en tips */
+    .sidebar-tips ul li::before {
+      content: "🌱 ";
+      margin-right: 4px;
+    }
+    /* Modo oscuro */
+    body.dark-mode {
+      background: #222;
+      color: #e0e0e0;
+    }
+    body.dark-mode section {
+      background: #333;
+      color: #e0e0e0;
+    }
+    body.dark-mode .sidebar-tips {
+      background: #263238;
+      color: #e0e0e0;
+      border-left: 4px solid #388e3c;
+    }
+    body.dark-mode .sidebar-tips h3 {
+      color: #81c784;
+    }
+    body.dark-mode .sidebar-tips ul li {
+      color: #e0e0e0;
+    }
+    body.dark-mode nav {
+      background: #263238;
+    }
+    body.dark-mode .sidebar-toggle-btn {
+      background: #388e3c;
+      color: #fff;
+    }
+    /* Imágenes interactivas */
+    img.interactive {
+      cursor: zoom-in;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    img.interactive:active {
+      transform: scale(1.15);
+      z-index: 999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+    /* Barra de progreso lateral */
+    .progress-bar {
+      position: fixed;
+      left: 0;
+      top: 100px;
+      width: 8px;
+      height: 70vh;
+      background: #4ee255;
+      border-radius: 0 8px 8px 0;
+      z-index: 150;
+    }
+    /* FAQ */
+    .faq-section {
+      background: #e3f2fd;
+      border-radius: 8px;
+      padding: 25px 20px;
+      margin: 40px auto;
+      max-width: 700px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .faq-section h3 {
+      color: #388e3c;
+      margin-top: 0;
+    }
+    .faq-section details {
+      margin-bottom: 12px;
+    }
+    @media (max-width: 1100px) {
+      .sidebar-tips, .progress-bar { display: none; }
+    }
+    .sidebar-toggle-btn {
+      position: fixed;
+      top: 110px;
+      right: 0;
+      z-index: 101;
+      background: #388e3c;
+      color: #fff;
+      border: none;
+      border-radius: 8px 0 0 8px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-size: 1em;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.08);
+      transition: right 0.3s;
+    }
+    .sidebar-tips.hidden {
+      display: none !important;
+    }
+    .sidebar-tips {
+      position: fixed;
+      top: 100px;
+      right: 0;
+      width: 300px;
+      background: #e8f5e9;
+      border-radius: 8px 0 0 8px;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.08);
+      padding: 25px 20px;
+      z-index: 100;
+      font-size: 1.08em;
+      color: #155a1c;
+      border-left: 4px solid #4ee255;
+    }
+    .sidebar-tips h3 {
+      margin-top: 0;
+      color: #207c2a;
+      text-align: left;
+      font-size: 1.2em;
+    }
+    .sidebar-tips ul {
+      padding-left: 18px;
+      margin-top: 10px;
+    }
+    .sidebar-tips ul li {
+      color: #155a1c;
+    }
+    @media (max-width: 1100px) {
+      .sidebar-tips { display: none; }
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    header {
+      background: #05580a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background: #1b5e20;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 30px;
+      background: white;
+      margin: 20px auto;
+      max-width: 900px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #1b5e20;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      margin: 15px auto;
+      border-radius: 5px;
+    }
+    footer {
+      background: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <button id="sidebarToggleBtn" class="sidebar-toggle-btn" style="top:110px;right:0;" onclick="toggleSidebarTips()">Ocultar tips</button>
+  <div class="sidebar-tips" id="sidebarTips">
+    <h3>Tips para cuidar el medio ambiente</h3>
+    <ul>
+      <li>Reduce el uso de plásticos desechables.</li>
+      <li>Recicla papel, vidrio, plástico y metales.</li>
+      <li>Ahorra agua y energía en casa.</li>
+      <li>Utiliza transporte público, bicicleta o camina.</li>
+      <li>Planta árboles y cuida las áreas verdes.</li>
+      <li>Compra productos locales y de temporada.</li>
+      <li>Evita tirar basura en la calle y cuerpos de agua.</li>
+      <li>Participa en campañas de limpieza y educación ambiental.</li>
+    </ul>
+  </div>
+  <div class="progress-bar"></div>
+  <button id="darkModeBtn" class="sidebar-toggle-btn" style="top:160px;right:0;background:#222;" onclick="toggleDarkMode()">Modo oscuro</button>
+  </div>
+  <header>
+    <h1>Ambiente y Sustentabilidad</h1>
+    <p>Unidades 1 y 2</p>
+    <p><b>Samantha Anaid Garza Ruvalcaba</b> - Matrícula: 2114670</p>
+  </header>
+
+  <nav>
+    <a href="#unidad1">Unidad 1</a>
+    <a href="#unidad2">Unidad 2</a>
+  </nav>
+
+  <section id="unidad1">
+    <h2>Unidad 1: Principios Básicos de la Naturaleza</h2>
+    <div style="margin-bottom:28px;">
+      <p>La Tierra es un ecosistema viviente capaz de autorregularse y mantener condiciones estables. Los ecosistemas nos brindan bienes y servicios esenciales como aire, agua, alimentos y energía.</p>
+  <img src="imagenes/ecosistema.png" alt="Ecosistema" class="interactive" style="max-width:320px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-top:10px;">
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:28px;">
+      <h3>La Tierra como Ecosistema</h3>
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;">
+  <img src="imagenes/tierra_ecosistema.png" alt="La Tierra como ecosistema" class="interactive" style="max-width:220px;">
+        <p style="max-width:400px;">Sistema abierto en energía y cerrado en materia. Mantiene homeostasis gracias a interacciones físicas y biológicas.</p>
+      </div>
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:28px;">
+      <h3>Subsistemas Físicos</h3>
+      <ul>
+        <li><b>Atmósfera:</b> protege contra radiación, regula clima.</li>
+        <li><b>Hidrosfera:</b> regula temperatura, transporta agua.</li>
+        <li><b>Litosfera:</b> sostén de la vida, origen de minerales.</li>
+      </ul>
+      <div style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;margin-top:18px;">
+        <div style="text-align:center;">
+          <img src="imagenes/capas_atmosfera.png" alt="Capas de la Atmósfera" class="interactive" style="max-width:180px;">
+          <div style="font-size:0.98em;color:#1b5e20;margin-top:6px;">Atmósfera</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:18px;">
+          <div style="text-align:center;">
+            <div style="font-weight:bold;color:#1b5e20;margin-bottom:8px;">Hidrosfera</div>
+            <img src="imagenes/agua_tierra.png" alt="Hidrosfera" class="interactive" style="max-width:140px;">
+          </div>
+          <div style="font-size:1em;max-width:260px;">
+            <b>Funciones:</b><br>
+            • Determina clima mediante corrientes oceánicas.<br>
+            • Sustento de ecosistemas acuáticos y terrestres.
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:18px;">
+          <div style="text-align:center;">
+            <div style="font-weight:bold;color:#1b5e20;margin-bottom:8px;">Litosfera</div>
+            <img src="imagenes/litosfera.png" alt="Litosfera" class="interactive" style="max-width:140px;">
+          </div>
+          <div style="font-size:1em;max-width:260px;">
+            Formada por corteza y parte superior del manto.<br>
+            • Su dinámica genera relieve, volcanes y terremotos.<br>
+            • El campo magnético protege la Tierra de radiación solar.
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:28px;">
+      <h3>Subsistema Biológico</h3>
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;">
+  <img src="imagenes/organismos.png" alt="Cadena alimenticia" class="interactive" style="max-width:220px;">
+        <p style="max-width:400px;">Productores, consumidores y desintegradores mantienen el flujo de energía y el reciclaje de nutrientes.</p>
+      </div>
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:28px;">
+      <h3>Recursos Naturales</h3>
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;">
+  <img src="imagenes/recursos.png" alt="Recursos naturales" class="interactive" style="max-width:220px;">
+        <ul style="max-width:400px;">
+          <li>Permanentes: sol, viento, mareas.</li>
+          <li>Renovables: agua, oxígeno, suelo fértil.</li>
+          <li>No renovables: petróleo, carbón, minerales.</li>
+        </ul>
+      </div>
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:10px;">
+      <h3>Conclusión</h3>
+      <p>La Tierra funciona como un sistema integrado. El uso sostenible de recursos es clave para mantener el equilibrio.</p>
+    </div>
+  </section>
+
+  <section id="unidad2">
+
+    <h2>Unidad 2: Principios de Sostenibilidad</h2>
+    <div style="margin-bottom:28px;">
+      <p>El desarrollo sostenible busca satisfacer las necesidades presentes sin comprometer las futuras. Se basa en tres dimensiones: ambiental, económica y social.</p>
+  <img src="imagenes/sostenibilidad.png" alt="Desarrollo sostenible" class="interactive" style="max-width:320px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-top:10px;">
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:28px;">
+      <h3>Dimensiones Fundamentales</h3>
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;">
+  <img src="imagenes/dimensiones.png" alt="Dimensiones de la sostenibilidad" class="interactive" style="max-width:220px;">
+        <ul style="max-width:400px;">
+          <li><b>Ambiental:</b> cuidado de ecosistemas y biodiversidad.</li>
+          <li><b>Económica:</b> crecimiento con bienestar y sin degradar el ambiente.</li>
+          <li><b>Social:</b> equidad, justicia y calidad de vida.</li>
+        </ul>
+      </div>
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:28px;">
+      <h3>Retos del Desarrollo Sostenible</h3>
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;">
+  <img src="imagenes/cambio_climatico.png" alt="Cambio climático" class="interactive" style="max-width:220px;">
+        <p style="max-width:400px;">Cambio climático, pérdida de biodiversidad, agotamiento de recursos, desigualdad social y pobreza.</p>
+      </div>
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:28px;">
+      <h3>Programas y Acuerdos Globales</h3>
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;">
+  <img src="imagenes/agenda2030.png" alt="Agenda 2030 y ODS" class="interactive" style="max-width:220px;">
+        <ul style="max-width:400px;">
+          <li>Agenda 21 (1992)</li>
+          <li>Declaración del Milenio (2000)</li>
+          <li>Agenda 2030 y ODS (2015)</li>
+        </ul>
+      </div>
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:28px;">
+      <h3>Objetivos de Desarrollo Sostenible (ODS)</h3>
+      <p>Son 17 objetivos adoptados por la ONU para erradicar la pobreza, proteger el planeta y garantizar prosperidad.</p>
+    </div>
+    <hr style="margin:24px 0;">
+    <div style="margin-bottom:10px;">
+      <h3>Conclusión</h3>
+      <p>El desarrollo sostenible implica un esfuerzo mundial para equilibrar protección ambiental, crecimiento económico y bienestar social.</p>
+    </div>
+  </section>
+
+  <footer>
+  <script>
+    function toggleSidebarTips() {
+      var sidebar = document.getElementById('sidebarTips');
+      var btn = document.getElementById('sidebarToggleBtn');
+      if (sidebar.classList.contains('hidden')) {
+        sidebar.classList.remove('hidden');
+        btn.innerText = 'Ocultar tips';
+      } else {
+        sidebar.classList.add('hidden');
+        btn.innerText = 'Mostrar tips';
+      }
+    }
+  </script>
+  <section class="faq-section">
+    <h3>Preguntas frecuentes sobre sustentabilidad</h3>
+    <details>
+      <summary>¿Qué es el desarrollo sostenible?</summary>
+      <div>Es el desarrollo que satisface las necesidades del presente sin comprometer las de las futuras generaciones.</div>
+    </details>
+    <details>
+      <summary>¿Por qué es importante reciclar?</summary>
+      <div>Reciclar reduce la contaminación, ahorra recursos y energía, y ayuda a proteger el medio ambiente.</div>
+    </details>
+    <details>
+      <summary>¿Cómo puedo ahorrar agua en casa?</summary>
+      <div>Repara fugas, usa regadera eficiente, cierra la llave mientras te enjabonas o lavas dientes, reutiliza agua cuando sea posible.</div>
+    </details>
+    <details>
+      <summary>¿Qué acciones ayudan a reducir mi huella de carbono?</summary>
+      <div>Usa transporte público, consume menos carne, ahorra energía, compra productos locales y recicla.</div>
+    </details>
+  </section>
+  <script>
+    // Mostrar/ocultar barra de tips
+    function toggleSidebarTips() {
+      var sidebar = document.querySelector('.sidebar-tips');
+      if (sidebar) {
+        sidebar.classList.toggle('hidden');
+        var btn = document.getElementById('sidebarToggleBtn');
+        if (sidebar.classList.contains('hidden')) {
+          btn.innerText = 'Mostrar tips';
+        } else {
+          btn.innerText = 'Ocultar tips';
+        }
+      }
+    }
+    // Modo oscuro
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      var btn = document.getElementById('darkModeBtn');
+      if (document.body.classList.contains('dark-mode')) {
+        btn.innerText = 'Modo claro';
+      } else {
+        btn.innerText = 'Modo oscuro';
+      }
+    }
+    // Imágenes interactivas (ampliar al hacer clic)
+    document.querySelectorAll('img.interactive').forEach(function(img) {
+      img.addEventListener('click', function() {
+        if (!img.classList.contains('zoomed')) {
+          img.classList.add('zoomed');
+          img.style.transform = 'scale(1.5)';
+          img.style.zIndex = '9999';
+        } else {
+          img.classList.remove('zoomed');
+          img.style.transform = '';
+          img.style.zIndex = '';
+        }
+      });
+    });
+    // Barra de progreso (scroll)
+    window.addEventListener('scroll', function() {
+      var bar = document.querySelector('.progress-bar');
+      var scrollY = window.scrollY;
+      var docHeight = document.body.scrollHeight - window.innerHeight;
+      var percent = docHeight > 0 ? (scrollY / docHeight) : 0;
+      bar.style.height = (percent * 70 + 10) + 'vh';
+    });
+  </script>
+  <script>
+    function toggleSidebarTips() {
+      var sidebar = document.querySelector('.sidebar-tips');
+      if (sidebar) {
+        sidebar.classList.toggle('hidden');
+        var btn = document.getElementById('sidebarToggleBtn');
+        if (sidebar.classList.contains('hidden')) {
+          btn.innerText = 'Mostrar tips';
+        } else {
+          btn.innerText = 'Ocultar tips';
+        }
+      }
+    }
+  </script>
+    <p>Universidad Autónoma de Nuevo León - Facultad de Ingeniería Mecánica y Eléctrica</p>
+    <p>Materia: Ambiente y Sustentabilidad</p>
+  </footer>
+</body>
+</html>
